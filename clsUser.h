@@ -139,7 +139,7 @@ private:
     }
 
 public:
-    enum enMainMenuPermissions
+    enum enPermissions
     {
         eAll = -1,
         pListClients = 1,
@@ -334,5 +334,20 @@ public:
     static vector<clsUser> GetUsersList()
     {
         return _LoadUsersDataFromFile();
+    }
+
+    bool CheckAccessPermission(enPermissions Permission)
+    {
+        if (Permission == enPermissions ::eAll)
+        {
+            return true;
+        }
+
+        if (Permission & this->_Permissions == Permission)
+        {
+            return true;
+        }
+
+        return false;
     }
 };
